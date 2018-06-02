@@ -2,7 +2,7 @@
 node_modules/
 
 # npm debug
-npm-debug.log
+./npm-debug.log
 
 # Windows image file caches
 Thumbs.db
