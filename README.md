@@ -1,6 +1,6 @@
 # stable roommates
 
-[https://dhansmair.github.io/stable-roommates-algorithm](https://dhansmair.github.io/stable-roommates-algorithm)
+[https://dhansmair.github.io/stable-roommates-demo](https://dhansmair.github.io/stable-roommates-demo)
 
 
 This is a small visualization of how Irving's algorithm solves the stable roommates problem.
