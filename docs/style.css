@@ -1,0 +1,211 @@
+* {
+    box-sizing:border-box;
+}
+
+body {
+    margin:0;
+    padding:0 50px;
+    max-height: 100%;
+    position: relative;
+}
+    
+h3 {
+    margin:0em;
+    margin-bottom:1em;
+}
+
+main {
+    position: relative;
+}
+
+#controls {
+    border:1px solid #ccc;
+    padding:5px;
+}
+
+#container {
+    
+    overflow: hidden;
+}
+
+#setupWindow {
+    display: flex;
+    margin-top:5px;
+    overflow: hidden;
+    transition:0.2s;
+}
+
+#setupWindow > section {
+    flex:2;
+    border:1px solid #ccc;
+    padding:15px;
+}
+
+textarea {
+    width:100%;
+    height:300px;
+}
+
+#setupWindow > aside {
+    flex:1;
+    border:1px solid #ccc;
+    padding:15px;
+    margin-left:5px;
+    font-family: "Cambria Math";
+}
+
+
+#demoWindow {
+    margin-top:5px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    align-content: stretch;
+    align-self: stretch;
+    max-height: 900px;
+}
+
+#demoWindow > section {
+    flex:1;
+    border:1px solid #ccc;
+    overflow: auto;
+}
+
+
+
+
+#demoWindow > aside {
+    flex:1;
+    display: flex;
+    flex-flow: column nowrap;
+    margin-left:5px;
+    min-width: 250px;
+    max-width: 250px;
+    font-family: "Cambria Math";
+}
+
+#demoControls {
+    border:1px solid #ccc;
+    text-align: center;
+    padding:15px
+}
+
+#demoWindow nav {
+    overflow-y: auto;
+}
+
+.navElement {
+    padding:10px;
+    background-color:#4CB299;
+    border:1px solid #3D8E7A;
+}
+
+.navElement:hover {
+    cursor:pointer;
+    background-color:#3D8E7A;
+}
+
+.navElement.active {
+    background-color: lightcoral;
+}
+
+.navElement span:last-of-type {
+    margin-left:20px;
+}
+
+.navElement.running_1 {
+    
+}
+
+.navElement.running_2 {
+    background-color:#DFBF5F;
+    border-color: #B2994C;
+}
+
+.navElement.running_2:hover {
+    background-color:#B2994C;
+}
+
+.navElement.solved {
+    background-color:#DF5FBF;
+}
+
+.navElement.unsolvable {
+    background-color:red;
+}
+
+
+.closed {
+    height:0 !important;
+}
+
+#tableContainer {
+    overflow: auto;
+    width:100%;
+    height:100%;
+}
+
+#demoTarget {
+    border-spacing: 2px;
+    border-collapse: separate;
+    font-family: "Cambria Math";
+}
+
+tr {
+    min-height:30px;
+    max-height:30px;
+    overflow: hidden;
+}
+
+td {
+    border:1px solid white;
+    min-width:20px;
+    min-height:20px;
+    min-height:30px;
+    max-height:30px;
+    text-align:center;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 30px;
+}
+
+td.head {
+    min-width: 30px;
+    font-size: large;
+    font-weight: bold;
+    text-align: left; 
+}
+
+td.highlight-1 {
+    border:1px solid #ccc;
+}
+
+td.highlight-2 {
+    border-color:black;
+}
+
+
+td.highlight-3 {
+    border-radius: 10px;
+    background-color:lightgreen;
+}
+
+td.dead {
+    color: #dedede;
+    display: none;
+}
+
+#demoTarget.showDeleted td.dead {
+    display:table-cell;
+}
+
+.super {
+    vertical-align: super;
+    font-size:small;
+}
+
+.sub {
+    vertical-align: sub;
+    font-size:small;
+    font-weight: normal;
+}
