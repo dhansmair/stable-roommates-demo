@@ -37,7 +37,12 @@ export default class PreferenceList {
         this.history = []
     }
 
-    public getHistory() {
+    /**
+     * public getHistory - description
+     *
+     * @return {Array<Snapshot>}  description
+     */
+    public getHistory() : Array<Snapshot> {
         return this.history
     }
 
@@ -229,6 +234,9 @@ export default class PreferenceList {
         return rotation
     }
 
+    /**
+     *
+     */
     findRotationVictims(rotation: Array<Array<number>>) : Array<Array<number>> {
         let result: Array<Array<number>> = [],
             n = rotation.length
@@ -328,7 +336,6 @@ export default class PreferenceList {
         }
     }
 
-
     /**
         creates a random preference table and returns an instance of PreferenceList
     */
@@ -336,11 +343,4 @@ export default class PreferenceList {
         let table = Utils.rand(n)
         return new PreferenceList(table)
     }
-
-
-
-    static createFromString(str : string) {
-
-    }
-
 }

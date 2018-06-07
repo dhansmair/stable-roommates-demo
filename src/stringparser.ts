@@ -84,9 +84,4 @@ export default class StringParser {
         return result
     }
 
-
-
-
-
-
 }

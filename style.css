@@ -19,8 +19,10 @@ main {
 }
 
 #controls {
-    border:1px solid #ccc;
+    /border:1px solid #ccc;
     padding:5px;
+    margin-bottom:50px;
+    text-align:center;
 }
 
 #container {
@@ -37,7 +39,7 @@ main {
 
 #setupWindow > section {
     flex:2;
-    border:1px solid #ccc;
+    /border:1px solid #ccc;
     padding:15px;
 }
 
@@ -48,7 +50,7 @@ textarea {
 
 #setupWindow > aside {
     flex:1;
-    border:1px solid #ccc;
+    /border:1px solid #ccc;
     padding:15px;
     margin-left:5px;
     font-family: "Cambria Math";
@@ -67,7 +69,7 @@ textarea {
 
 #demoWindow > section {
     flex:1;
-    border:1px solid #ccc;
+    /border:1px solid #ccc;
     overflow: auto;
 }
 
@@ -85,7 +87,7 @@ textarea {
 }
 
 #demoControls {
-    border:1px solid #ccc;
+    /border:1px solid #ccc;
     text-align: center;
     padding:15px
 }
@@ -126,6 +128,25 @@ textarea {
     background-color:#B2994C;
 }
 
+.navElement.status-0 {
+    background-color:green
+}
+.navElement.status-1 {
+    background-color:pink
+}
+.navElement.status-2 {
+    background-color:red
+}
+.navElement.status-3 {
+    background-color:red
+}
+.navElement.status-4 {
+    background-color:white
+}
+.navElement.status-5 {
+    background-color:blue
+}
+
 .navElement.solved {
     background-color:#DF5FBF;
 }
@@ -149,6 +170,7 @@ textarea {
     border-spacing: 2px;
     border-collapse: separate;
     font-family: "Cambria Math";
+    
 }
 
 tr {
@@ -209,3 +231,4 @@ td.dead {
     font-size:small;
     font-weight: normal;
 }
+

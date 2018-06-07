@@ -37,7 +37,7 @@ export default class Coordinator {
 
 
         // set up logic structure
-        this.renderer = new Renderer(demoWindow.querySelector("#demoControls"),
+        this.renderer = new Renderer(demoWindow.querySelector("#controls"),
             demoWindow.querySelector("#demoTarget"), demoWindow.querySelector("nav"))
 
     }

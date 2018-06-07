@@ -10,29 +10,21 @@
     <h1>the stable-roommates-algorithm</h1>
 
         <main>
-            <div id="controls">
-                <button id="openSetup">new</button>
-            </div>
+
             <div id="container">
 
                 <div id="setupWindow" >
                     <section>
                         <h3>setup</h3>
                         <textarea>
-0  | 3  5  7  6  10 1  8  9  4  11 2  13  12
-1  | 0  3  8  7  2  4  13 5  12 10 9  11  6
-2  | 8  11 0  9  5  7  6  1  3  12 4  13  10
-3  | 4  2  5  6  8  12 10 13 0  1  11 9  7
-4  | 9  2  0  11 3  12 7  1  6  5  10 8  13
-5  | 8  7  6  11 10 4  2  13 3  12 0  9  1
-6  | 4  9  8  0  2  1  10 7  12 13 5  3  11
-7  | 8  1  13 11 12 10 6  5  2  9  3  0  4
-8  | 10 12 0  2  5  13 7  3  11 6  4  1  9
-9  | 1  8  10 5  11 3  6  2  7  4  12 13 0
-10 | 4  11 13 7  6  9  5  0  12 3  1  8  2
-11 | 3  2  6  1  9  7  13 5  10 0  4  12 8
-12 | 4  1  3  5  8  9  6  2  0  7  13 11 10
-13 | 4  1  3  9  12 6  11 10 2  5  7  8  0
+1 | 6 8 4 3 2 7 5
+2 | 7 4 6 5 8 3 1
+3 | 7 8 1 2 6 4 5
+4 | 5 6 1 8 2 7 3
+5 | 1 2 4 6 3 8 7
+6 | 3 2 5 1 8 4 7
+7 | 4 1 8 5 6 3 2
+8 | 5 6 7 3 4 2 1
                         </textarea>
                         <br />
                         <button id="createButton">create</button>
@@ -55,10 +47,13 @@
                 </div>
                 <div id="demoWindow" class="closed">
                     <section>
+                        <div id="controls">
+                            <button id="openSetup">new</button>
+                        </div>
                         <table id="demoTarget"></table>
                     </section>
                     <aside>
-                        <div id="demoControls"></div>
+
                         <nav></nav>
                     </aside>
                 </div>

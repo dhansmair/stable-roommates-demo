@@ -28,16 +28,6 @@ export default class Utils {
       return result;
     }
 
-    static actOnEachLine(textarea : HTMLTextAreaElement, func : Callback) : void {
-        let lines = textarea.value.replace(/\r\n/g, "\n").split("\n"),
-            i = lines.length;
-
-        while (i--) {
-            func(lines[i]);
-        }
-
-    }
-
     static allDifferent(arr: Array<any>) : boolean {
         for (let i = 0; i < arr.length; i++) {
             if (arr.indexOf(arr[i]) !== i) return false
