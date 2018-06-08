@@ -8,15 +8,11 @@
 </head>
 <body>
     <h1>the stable-roommates-algorithm</h1>
-
         <main>
-
-            <div id="container">
-
-                <div id="setupWindow" >
-                    <section>
-                        <h3>setup</h3>
-                        <textarea>
+            <div id="setupWindow" >
+                <section>
+                    <h3>setup</h3>
+                    <textarea>
 1 | 6 8 4 3 2 7 5
 2 | 7 4 6 5 8 3 1
 3 | 7 8 1 2 6 4 5
@@ -25,38 +21,38 @@
 6 | 3 2 5 1 8 4 7
 7 | 4 1 8 5 6 3 2
 8 | 5 6 7 3 4 2 1
-                        </textarea>
-                        <br />
-                        <button id="createButton">create</button>
-                    </section>
-                    <aside>
-                        <h3>setup of a demonstration example</h3>
-                        There are two different options:
-                        <ol>
-                            <li>
-                                pass a single number <i>n</i> to create a random table
-                                with <i>n</i> persons <i>or</i>
-                            </li>
-                            <li>
-                                pass a full preference table similar to the
-                                default text. persons can be identified with a unique string
-                            </li>
-                        </ol>
-                    </aside>
-
-                </div>
-                <div id="demoWindow" class="closed">
-                    <section>
-                        <div id="controls">
-                            <button id="openSetup">new</button>
-                        </div>
+                    </textarea>
+                    <br />
+                    <button id="createButton">create</button>
+                </section>
+                <aside>
+                    <h3>setup of a demonstration example</h3>
+                    There are two different options:
+                    <ol>
+                        <li>
+                            pass a single number <i>n</i> to create a random table
+                            with <i>n</i> persons <i>or</i>
+                        </li>
+                        <li>
+                            pass a full preference table similar to the
+                            default text. persons can be identified with a unique string
+                        </li>
+                    </ol>
+                </aside>
+            </div>
+            <div id="demoWindow" class="closed">
+                <section>
+                    <div id="controls">
+                        <button id="openSetup">new</button>
+                    </div>
+                    <div id="container">
                         <table id="demoTarget"></table>
-                    </section>
-                    <aside>
+                    </div>
 
-                        <nav></nav>
-                    </aside>
-                </div>
+                </section>
+                <aside>
+                    <nav></nav>
+                </aside>
             </div>
 
         </main>

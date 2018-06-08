@@ -3,6 +3,9 @@ import {SnapshotStatus} from "./snapshot"
 import Utils from "./utils"
 import {Status} from "./preferencelist"
 
+/**
+ *
+ */
 class Cell {
     constructor(public value: number, public d = false, public r = false, public c = false) {}
 }
@@ -67,12 +70,8 @@ export default class Renderer {
 
     }
 
-
     /**
-     * public setDictionary - description
      *
-     * @param  {type} dictionary : Array<string> description
-     * @return {type}                            description
      */
     public setDictionary(dictionary : Array<string>) {
         this.dictionary = dictionary
@@ -81,10 +80,10 @@ export default class Renderer {
     /**
      * lookUp - description
      *
-     * @param  {type} index: number description
-     * @return {type}               description
+     * @param  {number} index: number description
+     * @return {string}               description
      */
-    private lookUp(index: number) {
+    private lookUp(index: number) : string {
         if (this.dictionary != null && this.dictionary.length > index) {
             return this.dictionary[index]
         }
@@ -105,12 +104,8 @@ export default class Renderer {
         }
     }
 
-
     /**
-     * setTarget - description
      *
-     * @param  {type} target: HTMLDivElement description
-     * @return {type}                        description
      */
     public setTarget(target: HTMLTableElement) {
         this.target = target
@@ -120,7 +115,6 @@ export default class Renderer {
     /**
      * private setUp - description
      *
-     * @return {type}  description
      */
     private setUp() {
         this.target.innerHTML = ""
@@ -155,22 +149,34 @@ export default class Renderer {
         this.target.appendChild(fragment)
     }
 
-/*
-    statusToClassName(s : Status) {
-        switch(s) {
-            case Status.Running_1:
-                return "running_1"
-            case Status.Running_2:
-                return "running_2"
-            case Status.Solved:
-                return "solved"
-            default:
+    /**
+     *
+     */
+    private statusToString(status:SnapshotStatus) {
+        switch(status) {
+            case SnapshotStatus.Initial:
+                return "initial table"
+            case SnapshotStatus.MakeProposal:
+                return "make a proposal"
+            case SnapshotStatus.FindRotation:
+                return "find rotation"
+            case SnapshotStatus.Delete:
+                return "delete pairs"
+            case SnapshotStatus.Result:
+                return "result"
+            case SnapshotStatus.Finish:
+                return "matching found"
+            case SnapshotStatus.Unsolvable:
                 return "unsolvable"
-
+            default:
+                return ""
         }
-    }
-*/
 
+    }
+
+    /**
+     *
+     */
     createNav() {
         let fragment = document.createDocumentFragment()
         let original = document.createElement("div")
@@ -180,7 +186,7 @@ export default class Renderer {
             let snapshot = this.history[i]
             let div = (original.cloneNode(true) as HTMLDivElement)
 
-            div.innerHTML += "<span>" + (i+1).toString() + ". step</span><span>" +  snapshot.status + "</span>"
+            div.innerHTML += "<span>" + (i+1).toString() + ".</span><span>" +  this.statusToString(snapshot.status) + "</span>"
             div.classList.add("status-" + snapshot.status)
             div.setAttribute("index", i.toString())
             fragment.appendChild(div)
@@ -193,8 +199,7 @@ export default class Renderer {
 
     /**
      * render - description
-     * TODO
-     * @return {type}  description
+     *
      */
     render() {
         let snapshot = this.history[this.currentIndex]
@@ -233,10 +238,12 @@ export default class Renderer {
             })
         }
 
-
         this.renderPager()
     }
 
+    /**
+     *
+     */
     private clearDecorations() {
         let cells : NodeList = this.target.querySelectorAll("td")
         let cellsArray : Array<HTMLElement> = [].slice.call(cells)
@@ -254,8 +261,6 @@ export default class Renderer {
     /**
      * navClicked - description
      *
-     * @param  {type} e : MouseEvent description
-     * @return {type}                description
      */
     navClicked(e : MouseEvent) {
         let el = (e.target as HTMLElement)
@@ -281,9 +286,6 @@ export default class Renderer {
         if (this.currentIndex > 0) {
             this.currentIndex--
             this.render()
-
-        } else {
-
         }
     }
 
@@ -297,12 +299,12 @@ export default class Renderer {
         if (this.currentIndex+1 < this.history.length) {
             this.currentIndex++
             this.render()
-
-        } else {
-
         }
     }
 
+    /**
+     *
+     */
     private renderPager() {
         let max = this.history.length
         let current = this.currentIndex + 1
@@ -318,6 +320,9 @@ export default class Renderer {
         newActive.classList.add("active")
     }
 
+    /**
+     *
+     */
     toggleShowDeletedPairs() {
         if (this.checkbox.checked) {
             this.target.classList.add("showDeleted")
@@ -343,12 +348,8 @@ export default class Renderer {
         return this.target.querySelector(queryString)
     }
 
-
     /**
-     * @static computeDiff - description
      *
-     * @param  {type} s : Snapshot description
-     * @return {type}              description
      */
     computeDiff(s: Snapshot) {
         let result = [],
@@ -367,21 +368,6 @@ export default class Renderer {
         } else {
             let originalTable = initial.table
             let currentTable = s.table
-
-            // rotationen und deletions aufbereiten
-            // statt {x, y} mache {x, indexOf(y)}
-            /*
-            if (s.rotation !== undefined) {
-                s.rotation.forEach(pair => {
-                    pair[1] = originalTable[pair[0]].indexOf(pair[1])
-                })
-            }
-            if (s.deletion !== undefined) {
-                s.deletion.forEach(pair => {
-                    pair[1] = originalTable[pair[0]].indexOf(pair[1])
-                })
-            }*/
-
 
             // compute difference between original table and current table
             for (let i = 0; i < originalTable.length; i++) {

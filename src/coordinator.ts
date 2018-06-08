@@ -66,6 +66,11 @@ export default class Coordinator {
             if (text.trim().indexOf(" ") === -1) {
                 // create random table
                 let n = parseInt(text.trim())
+
+                if (n < 2 || n%2 != 0) {
+                    throw new Error("invalid number passed")
+                }
+
                 this.preferenceList = PreferenceList.createRandom(n)
                 this.renderer.setDictionary(null)
             } else {
@@ -77,7 +82,6 @@ export default class Coordinator {
                 this.renderer.setDictionary(dict)
             }
 
-            //this.preferenceList.print()
             this.preferenceList.solve()
             let history = this.preferenceList.getHistory()
 
@@ -86,8 +90,8 @@ export default class Coordinator {
             this.renderer.render()
 
         } catch(e) {
-            console.warn("fehler")
             console.warn(e)
+            alert(e)
         }
 
     }

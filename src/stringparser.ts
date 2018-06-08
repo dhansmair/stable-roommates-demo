@@ -11,9 +11,7 @@ export default class StringParser {
 
 
     /**
-     * public getDictionary - description
      *
-     * @return {type}  description
      */
     public getDictionary() {
         return this.dictionary
@@ -33,11 +31,18 @@ export default class StringParser {
         }
     }
 
+    private lookUp(str: string) : number {
+        let i = this.dictionary.indexOf(str)
+
+        if (i === -1) {
+            throw new Error("invalid value '" + str + "' in table")
+        } else {
+            return i
+        }
+    }
+
     /**
-     * parse - description
      *
-     * @param  {type} str: string description
-     * @return {type}             description
      */
     parse(str: string, textarea: HTMLTextAreaElement) {
         str = str.trim().replace(/\t+/g, ' ').replace(/  +/g, ' ').replace(/\r\n/g, "\n")
@@ -45,33 +50,41 @@ export default class StringParser {
         textarea.value = str
 
         let arr = str.split("\n")
-        let result = []
+        let result : Array<Array<number>> = []
 
         this.n = arr.length
 
-        for (let row of arr) {
-            let resultRow = []
+        // add entries to the dictionary in the same order as the rows in the table
+        arr.forEach(row => {
             let splittedRow = row.trim().split(" ").map(s => s.trim())
+            this.lookUpOrAdd(splittedRow[0])
+        })
+
+        for (let i = 0; i < arr.length; i++) {
+            let row = arr[i],
+                resultRow = [],
+                splittedRow = row.trim().split(" ").map(s => s.trim())
 
             if (splittedRow.length - 1 != this.n) {
-                throw new Error("wrong number of elements")
+                throw new Error("wrong number of elements in row [" + i + "]")
             }
 
             if (!Utils.allDifferent(splittedRow)) {
-                throw new Error("duplicated value in this row");
+                throw new Error("duplicated value in row with index [" + i + "]");
             }
 
-            let first = this.lookUpOrAdd(splittedRow[0])
+            let first = this.lookUp(splittedRow[0])
 
             if (splittedRow[1] != "|") {
-                throw new Error("invalid syntax")
+                throw new Error("invalid syntax, there is no | separator")
             }
 
+            // remove head and separator
             splittedRow.shift()
             splittedRow.shift()
 
             for (let entry of splittedRow) {
-                resultRow.push(this.lookUpOrAdd(entry))
+                resultRow.push(this.lookUp(entry))
             }
 
             result[first] = resultRow

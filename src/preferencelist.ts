@@ -152,6 +152,10 @@ export default class PreferenceList {
      * @throws {Error} if any preferenceList gets empty
      */
     removePair(x:number, y:number) : void {
+        if (this.table[x].indexOf(y) == -1 || this.table[y].indexOf(x) == -1) {
+            return
+        }
+
         this.table[x].splice(this.table[x].indexOf(y), 1)
         this.table[y].splice(this.table[y].indexOf(x), 1)
 

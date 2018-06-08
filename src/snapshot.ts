@@ -9,6 +9,8 @@ export enum SnapshotStatus {
     Unsolvable
 }
 
+
+
 /**
  * a snapshot instance stores a state of a preferencelist
  * and is rendered afterwards
