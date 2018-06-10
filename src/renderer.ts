@@ -1,17 +1,19 @@
 import Snapshot from "./snapshot"
-import {SnapshotStatus} from "./snapshot"
+import { SnapshotStatus } from "./snapshot"
 import Utils from "./utils"
-import {Status} from "./preferencelist"
+import { Status } from "./preferencelist"
 
 /**
- *
+ * storage class for cell information
  */
 class Cell {
-    constructor(public value: number, public d = false, public r = false, public c = false) {}
+    constructor(public value: number, public d = false, public r = false, public c = false) { }
 }
 
 /**
- *
+ * the renderer gets an array of snapshots and displays the current table of a snapshot,
+ * and allows to go back and forward in the history.
+ * It also displays the whole history in the aside-element 
  */
 export default class Renderer {
 
@@ -53,11 +55,11 @@ export default class Renderer {
         this.controls.appendChild(this.checkbox)
         this.controls.appendChild(document.createTextNode("show deleted pairs"))
 
-        this.buttonLeft.addEventListener("click", () => {this.showPrev()})
-        this.buttonRight.addEventListener("click", () => {this.showNext()})
-        this.checkbox.addEventListener("click", () => {this.toggleShowDeletedPairs()})
+        this.buttonLeft.addEventListener("click", () => { this.showPrev() })
+        this.buttonRight.addEventListener("click", () => { this.showNext() })
+        this.checkbox.addEventListener("click", () => { this.toggleShowDeletedPairs() })
 
-        this.navigation.addEventListener("click", (e:MouseEvent) => {this.navClicked(e)})
+        this.navigation.addEventListener("click", (e: MouseEvent) => { this.navClicked(e) })
 
         // key controls
         document.addEventListener("keydown", e => {
@@ -73,7 +75,7 @@ export default class Renderer {
     /**
      *
      */
-    public setDictionary(dictionary : Array<string>) {
+    public setDictionary(dictionary: Array<string>) : void {
         this.dictionary = dictionary
     }
 
@@ -83,7 +85,7 @@ export default class Renderer {
      * @param  {number} index: number description
      * @return {string}               description
      */
-    private lookUp(index: number) : string {
+    private lookUp(index: number): string {
         if (this.dictionary != null && this.dictionary.length > index) {
             return this.dictionary[index]
         }
@@ -93,7 +95,7 @@ export default class Renderer {
     /**
      *
      */
-    public setHistory(history: Array<Snapshot>) : void {
+    public setHistory(history: Array<Snapshot>): void {
         this.history = history
         this.currentIndex = 0
 
@@ -107,7 +109,7 @@ export default class Renderer {
     /**
      *
      */
-    public setTarget(target: HTMLTableElement) {
+    public setTarget(target: HTMLTableElement) : void {
         this.target = target
     }
 
@@ -116,7 +118,7 @@ export default class Renderer {
      * private setUp - description
      *
      */
-    private setUp() {
+    private setUp() : void {
         this.target.innerHTML = ""
         let fragment = document.createDocumentFragment()
         let rowOriginal = document.createElement("tr")
@@ -137,7 +139,7 @@ export default class Renderer {
             separator.innerHTML = " | "
             row.appendChild(separator)
 
-            for (let j = 0; j < this.dimensions-1; j++) {
+            for (let j = 0; j < this.dimensions - 1; j++) {
                 let cell = cellOriginal.cloneNode(true) as HTMLTableCellElement
                 cell.innerHTML = "-"
                 row.appendChild(cell)
@@ -152,8 +154,8 @@ export default class Renderer {
     /**
      *
      */
-    private statusToString(status:SnapshotStatus) {
-        switch(status) {
+    private statusToString(status: SnapshotStatus) : string {
+        switch (status) {
             case SnapshotStatus.Initial:
                 return "initial table"
             case SnapshotStatus.MakeProposal:
@@ -177,16 +179,17 @@ export default class Renderer {
     /**
      *
      */
-    createNav() {
-        let fragment = document.createDocumentFragment()
-        let original = document.createElement("div")
+    private createNav(): void {
+        let fragment = document.createDocumentFragment(),
+            original = document.createElement("div")
+
         original.classList.add("navElement")
 
         for (let i = 0; i < this.history.length; i++) {
             let snapshot = this.history[i]
             let div = (original.cloneNode(true) as HTMLDivElement)
 
-            div.innerHTML += "<span>" + (i+1).toString() + ".</span><span>" +  this.statusToString(snapshot.status) + "</span>"
+            div.innerHTML += "<span>" + (i + 1).toString() + ".</span><span>" + this.statusToString(snapshot.status) + "</span>"
             div.classList.add("status-" + snapshot.status)
             div.setAttribute("index", i.toString())
             fragment.appendChild(div)
@@ -201,7 +204,7 @@ export default class Renderer {
      * render - description
      *
      */
-    render() {
+    public render(): void {
         let snapshot = this.history[this.currentIndex]
         let diff = this.computeDiff(snapshot)
 
@@ -244,9 +247,9 @@ export default class Renderer {
     /**
      *
      */
-    private clearDecorations() {
-        let cells : NodeList = this.target.querySelectorAll("td")
-        let cellsArray : Array<HTMLElement> = [].slice.call(cells)
+    private clearDecorations() : void {
+        let cells: NodeList = this.target.querySelectorAll("td")
+        let cellsArray: Array<HTMLElement> = [].slice.call(cells)
 
         for (let i = 0; i < cellsArray.length; i++) {
             cellsArray[i].classList.remove("dead")
@@ -262,7 +265,7 @@ export default class Renderer {
      * navClicked - description
      *
      */
-    navClicked(e : MouseEvent) {
+    private navClicked(e: MouseEvent) : void {
         let el = (e.target as HTMLElement)
 
         while (!el.classList.contains("navElement") && el.nodeName != "NAV") {
@@ -273,7 +276,6 @@ export default class Renderer {
             this.currentIndex = parseInt(el.getAttribute("index"))
             this.render()
         }
-
     }
 
 
@@ -282,7 +284,7 @@ export default class Renderer {
      *
      * @return {type}  description
      */
-    showPrev() : void {
+    private showPrev(): void {
         if (this.currentIndex > 0) {
             this.currentIndex--
             this.render()
@@ -295,8 +297,8 @@ export default class Renderer {
      *
      * @return {type}  description
      */
-    showNext() : void {
-        if (this.currentIndex+1 < this.history.length) {
+    private showNext(): void {
+        if (this.currentIndex + 1 < this.history.length) {
             this.currentIndex++
             this.render()
         }
@@ -305,9 +307,10 @@ export default class Renderer {
     /**
      *
      */
-    private renderPager() {
-        let max = this.history.length
-        let current = this.currentIndex + 1
+    private renderPager() : void {
+        let max = this.history.length,
+            current = this.currentIndex + 1
+
         this.pageNumber.innerHTML = current + " / " + max
         this.buttonLeft.disabled = current == 1
         this.buttonRight.disabled = current == max
@@ -323,7 +326,7 @@ export default class Renderer {
     /**
      *
      */
-    toggleShowDeletedPairs() {
+    private toggleShowDeletedPairs() : void {
         if (this.checkbox.checked) {
             this.target.classList.add("showDeleted")
         } else {
@@ -334,7 +337,7 @@ export default class Renderer {
     /**
      *
      */
-    getElement(row: number, col = -1) : HTMLSpanElement {
+    private getElement(row: number, col = -1): HTMLSpanElement {
         let queryString = ""
         row += 1
 
@@ -351,7 +354,7 @@ export default class Renderer {
     /**
      *
      */
-    computeDiff(s: Snapshot) {
+    private computeDiff(s: Snapshot): Array<Array<Cell>> {
         let result = [],
             initial = this.history[0]
 
@@ -366,14 +369,14 @@ export default class Renderer {
                 result.push(erg)
             }
         } else {
-            let originalTable = initial.table
-            let currentTable = s.table
+            let originalTable = initial.table,
+                currentTable = s.table
 
             // compute difference between original table and current table
             for (let i = 0; i < originalTable.length; i++) {
-                let originalRow = originalTable[i]
-                let currentRow = currentTable[i]
-                let erg = []
+                let originalRow = originalTable[i],
+                    currentRow = currentTable[i],
+                    erg = []
 
                 for (let j = 0; j < originalRow.length; j++) {
                     let originalCell = originalRow[j]
@@ -390,13 +393,12 @@ export default class Renderer {
                                 if (pair[0] === i && originalTable[pair[0]].indexOf(pair[1]) === j) {
                                     cell.r = true
                                 }
-
                             })
                         }
                         if (s.deletion !== undefined) {
                             s.deletion.forEach(pair => {
                                 if (pair[0] === i && originalTable[pair[0]].indexOf(pair[1]) === j
-                                 || pair[1] === i && originalTable[pair[1]].indexOf(pair[0]) === j) {
+                                    || pair[1] === i && originalTable[pair[1]].indexOf(pair[0]) === j) {
                                     cell.c = true
                                 }
                             })

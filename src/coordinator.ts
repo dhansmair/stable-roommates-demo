@@ -4,28 +4,27 @@ import Renderer from "./renderer"
 import Utils from "./utils"
 
 /**
- *
+ * coordinates page interactions, initializes the renderer 
  */
 export default class Coordinator {
 
-    private controls : HTMLDivElement
-    private setupWindow : HTMLDivElement
-    private demoWindow : HTMLDivElement
-    private textarea : HTMLTextAreaElement
+    private controls: HTMLDivElement
+    private setupWindow: HTMLDivElement
+    private demoWindow: HTMLDivElement
+    private textarea: HTMLTextAreaElement
 
 
     //
-    private preferenceList : PreferenceList
-    private stringParser : StringParser
-    private renderer : Renderer
+    private preferenceList: PreferenceList
+    private stringParser: StringParser
+    private renderer: Renderer
 
-    constructor(controls : HTMLDivElement, setupWindow: HTMLDivElement, demoWindow: HTMLDivElement) {
+    constructor(controls: HTMLDivElement, setupWindow: HTMLDivElement, demoWindow: HTMLDivElement) {
         // set up DOM etc.
         this.controls = controls
         this.setupWindow = setupWindow
         this.demoWindow = demoWindow
         this.textarea = setupWindow.querySelector("textarea")
-
 
         controls.querySelector("button").addEventListener("click", () => {
             this.toggleWindows()
@@ -35,8 +34,14 @@ export default class Coordinator {
             this.startDemo()
         })
 
+        // start demo on ctrl + enter
+        window.addEventListener('keydown', (e) => {
+            if (e.keyCode == 13 && e.ctrlKey) {
+                this.startDemo()
+            }
+        }, true)
 
-        // set up logic structure
+        // set up a renderer
         this.renderer = new Renderer(demoWindow.querySelector("#controls"),
             demoWindow.querySelector("#demoTarget"), demoWindow.querySelector("nav"))
 
@@ -45,8 +50,6 @@ export default class Coordinator {
 
     /**
      * toggleWindows - description
-     *
-     * @return {type}  description
      */
     toggleWindows() {
         if (this.setupWindow.classList.contains("closed")) {
@@ -58,7 +61,10 @@ export default class Coordinator {
         }
     }
 
-    startDemo() {
+    /**
+     *
+     */
+    startDemo(): void {
 
         try {
             let text = this.textarea.value
@@ -67,7 +73,7 @@ export default class Coordinator {
                 // create random table
                 let n = parseInt(text.trim())
 
-                if (n < 2 || n%2 != 0) {
+                if (n < 2 || n % 2 != 0) {
                     throw new Error("invalid number passed")
                 }
 
@@ -89,7 +95,7 @@ export default class Coordinator {
             this.toggleWindows()
             this.renderer.render()
 
-        } catch(e) {
+        } catch (e) {
             console.warn(e)
             alert(e)
         }
